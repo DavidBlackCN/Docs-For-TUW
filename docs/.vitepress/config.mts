@@ -69,7 +69,7 @@ export default defineConfig({
       { text: '🏠首页', link: '/' },
       { text: '🧭指南', link: '/doc/guide' },
       { text: '⬇️下载', link: '/doc/download1'},
-      { text: '🗂️文档库', link: '/doc/'},
+      { text: '🗂️文档库', link: '/doc/page'},
       { text: '🏛️博客', link: '/posts'},
       { text: '🚩更多', items: [
         { text: '🥰鸣谢列表', link: '/etc/thanks'},
