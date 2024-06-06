@@ -107,4 +107,4 @@ A：如果你无法解决问题：
 2.提问请过脑子
 :::
 
-![crash](image/crash/crash.png)
+![crash](/public/crash.png)
