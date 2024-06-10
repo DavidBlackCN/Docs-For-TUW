@@ -25,5 +25,5 @@
 * [AlbertZhang的文档网站 | VitePress部署](https://docs.bugdesigner.cn/docs/Tutorial/vitepress.html)
 * [VitePress快速上手 (yiov.top)](https://vitepress.yiov.top/)
 * [Vitepress Opne17 | 主题文档](https://vitepress.open17.vip/)
-* [Live2d | 看板娘](https://github.com/xinlei3166/vuepress-plugin-live2d-plus?tab=readme-ov-file)
+* [Live2d | 看板娘](https://github.com/xinlei3166/vitepress-theme-website)
 * [Markdown-emoji支持](https://github.com/markdown-it/markdown-it-emoji/blob/master/lib/data/full.mjs)
