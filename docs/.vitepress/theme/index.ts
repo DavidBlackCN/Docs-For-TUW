@@ -1,5 +1,5 @@
 import Theme from 'vitepress-theme-open17'
-//import { useLive2d } from 'vitepress-theme-website'
+import { useLive2d } from 'vitepress-theme-website'
 import Layout from "./components/Layout.vue"
 import mediumZoom from 'medium-zoom';
 import { onMounted, watch, nextTick } from 'vue';
@@ -28,6 +28,27 @@ export default {
       () => route.path,
       () => nextTick(() => initZoom())
     );//图片缩放
+
+    //看板娘
+    useLive2d({
+      enable: true,
+      model: {
+        url: 'https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/girls-frontline/HK416-2/normal/model.json'
+      },
+      display: {
+        position: 'right',
+        width: '270px',
+        height: '600px',
+        xOffset: '-20px',
+        yOffset: '-150px'
+      },
+      mobile: {
+        show: true
+      },
+      react: {
+        opacity: 0.8
+      }
+    })
 
   }
 }
