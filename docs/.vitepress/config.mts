@@ -37,7 +37,7 @@ export default defineConfig({
            },
     //编辑本页
     editLink: { 
-    pattern: 'https://github.com/DavidBlackCN/Docs-For-TUW', 
+    pattern: 'https://github.com/DavidBlackCN/Docs-For-TUW-RE', 
     text: '在GitHub编辑本页'
     },
     outlineTitle: "文档目录",
@@ -113,7 +113,7 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://github.com/DavidBlackCN/Docs-For-TUW-RE' }
     ],
     footer: 
     { 
