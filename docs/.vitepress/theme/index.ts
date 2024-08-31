@@ -30,25 +30,25 @@ export default {
     );//图片缩放
 
     //看板娘
-    useLive2d({
-      enable: true,
-      model: {
-        url: 'https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/girls-frontline/HK416-2/normal/model.json'
-      },
-      display: {
-        position: 'right',
-        width: '270px',
-        height: '600px',
-        xOffset: '-20px',
-        yOffset: '-150px'
-      },
-      mobile: {
-        show: true
-      },
-      react: {
-        opacity: 0.8
-      }
-    })
+//    useLive2d({
+//     enable: true,
+//      model: {
+//        url: 'https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/girls-frontline/HK416-2/normal/model.json'
+//      },
+//      display: {
+//      position: 'right',
+//       width: '270px',
+//        height: '600px',
+//        xOffset: '-20px',
+//        yOffset: '-150px'
+//      },
+//      mobile: {
+//        show: true
+//      },
+//      react: {
+//        opacity: 0.8
+//      }
+//    })
 
   }
 }
