@@ -7,7 +7,7 @@ title: 🔗一些参考链接
 
 <style src="/.vitepress/theme/style/linkcard.css"></style>
 <div class="linkcard">
-  <a href="https://afdian.net/a/bangbang93" target="_blank">
+  <a href="https://ifdian.net/a/bangbang93" target="_blank">
     <p class="description">bangbang93 &amp; bmclapi<br><span>https://afdian.net/a/bangbang93</span></p>
     <div class="logo">
         <img alt="Logo" width="70px" height="70px" src="/public/logo/aifadian.svg" />
@@ -19,7 +19,7 @@ title: 🔗一些参考链接
 
 <style src="/.vitepress/theme/style/linkcard.css"></style>
 <div class="linkcard">
-  <a href="https://afdian.net/a/huanghongxun" target="_blank">
+  <a href="https://ifdian.net/a/huanghongxun" target="_blank">
     <p class="description">huanghongxun &amp; HMCL3<br><span>https://afdian.net/a/huanghongxun</span></p>
     <div class="logo">
         <img alt="Logo" width="70px" height="70px" src="/public/logo/aifadian.svg" />
@@ -31,7 +31,7 @@ title: 🔗一些参考链接
 
 <style src="/.vitepress/theme/style/linkcard.css"></style>
 <div class="linkcard">
-  <a href="https://afdian.net/a/LTCat" target="_blank">
+  <a href="https://ifdian.net/a/LTCat" target="_blank">
     <p class="description">龙腾猫跃 &amp; PCL2<br><span>https://afdian.net/a/LTCat</span></p>
     <div class="logo">
         <img alt="Logo" width="70px" height="70px" src="/public/logo/aifadian.svg" />
