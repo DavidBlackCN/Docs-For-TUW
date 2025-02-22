@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  //base: "/Docs-For-TUW-RE/",
+  base: "/Docs-For-TUW-RE/",
   //extends: baseConfig,
   head: [ 
   ['script', { src: '/live2d.js' }],//l2d模型bug修复
