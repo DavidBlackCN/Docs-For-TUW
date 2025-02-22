@@ -27,3 +27,8 @@
 * [Vitepress Opne17 | 主题文档](https://vitepress.open17.vip/)
 * [Live2d | 看板娘](https://github.com/xinlei3166/vitepress-theme-website)
 * [Markdown-emoji支持](https://github.com/markdown-it/markdown-it-emoji/blob/master/lib/data/full.mjs)
+
+---
+
+### 预告
+新社区图书馆&文档库 comming soon~
