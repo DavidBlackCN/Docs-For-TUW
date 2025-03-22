@@ -1,4 +1,4 @@
-# 构建 VitePress 站点并将其部署到 GitHub Pages 的示例工作流程
+# 构建 VuePress 站点并将其部署到 GitHub Pages 的示例工作流程
 #
 name: Deploy VuePress site to Pages
 
@@ -45,14 +45,14 @@ jobs:
         uses: actions/configure-pages@v4
       - name: Install dependencies
         run: pnpm install # 或 pnpm install / yarn install / bun install
-      - name: Build with VitePress
+      - name: Build with VuePress
         run: 
           pnpm docs:build 
           touch .nojekyll 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: docs/.vitepress/dist
+          path: docs/.vuepress/dist
 
   # 部署工作
   deploy:
