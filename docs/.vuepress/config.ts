@@ -6,7 +6,7 @@ import { navbar } from './navbar'
 //import { live2dPlugin } from 'vuepress-plugin-live2d-plus'
 
 export default defineUserConfig({
-  base: '/TUW-Docs/',
+  base: '/Docs-For-TUW/',
   lang: 'zh-CN',
   title: 'TUW社区图书馆',
   description: '📑这是一个图书馆',
