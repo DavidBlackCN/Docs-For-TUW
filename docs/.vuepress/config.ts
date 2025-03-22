@@ -27,7 +27,7 @@ export default defineUserConfig({
       contentType: 'markdown', 
       content: `\
 - 文档库已全面更新
-- 欢迎来官方交流群做客喵w
+- 目前仍有一些bug，尽力抢修中！
 
 ![qrcode](https://cdn.jsdelivr.net/gh/DavidBlackCN/Docs-For-TUW@main/docs/.vuepress/public/image/qrcode.jpg)
 `,
