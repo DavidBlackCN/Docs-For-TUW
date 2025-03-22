@@ -3,7 +3,7 @@ import { defineUserConfig } from 'vuepress'
 import { plumeTheme } from 'vuepress-theme-plume'
 import { notes } from './notes'
 import { navbar } from './navbar'
-import { live2dPlugin } from 'vuepress-plugin-live2d-plus'
+//import { live2dPlugin } from 'vuepress-plugin-live2d-plus'
 
 export default defineUserConfig({
   base: '/TUW-Docs/',
@@ -16,28 +16,7 @@ export default defineUserConfig({
     ['link', { rel: 'icon', type: 'image/png', href: '/image/TUW-logo.png' }],
   ],
 
-    plugins: [
-      //L2D设置
-      live2dPlugin({
-        enable: true,
-        model: {
-          url: 'https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/girls-frontline/HK416-2/normal/model.json'
-        },
-        display: {
-          position: 'right',
-          width: '225px',
-          height: '500px',
-          xOffset: '5px',
-          yOffset: '-130px'
-        },
-        mobile: {
-          show: true
-        },
-        react: {
-          opacity: 0.8
-        }
-      })
-    ],
+
 
   bundler: viteBundler(),
   shouldPrefetch: false, // 站点较大，页面数量较多时，不建议启用
