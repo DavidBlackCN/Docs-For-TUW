@@ -6,7 +6,7 @@ import { notes } from './notes'
  * @see https://theme-plume.vuejs.press/config/basic/
  */
 export default defineThemeConfig({
-  logo: 'http://47.108.210.48:40027/i/2025/03/08/67cbdd077efe1.png',
+  logo: 'https://cdn.jsdelivr.net/gh/DavidBlackCN/Docs-For-TUW@main/docs/.vuepress/public/image/TUW-logo.png',
 
   appearance: true,  // 配置 深色模式
 
