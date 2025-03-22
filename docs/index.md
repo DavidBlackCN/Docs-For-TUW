@@ -17,11 +17,11 @@ config:
         -
           theme: alt
           text: → 游戏下载 ←
-          link: /notes/doc/guide
+          link: /notes/docs/1-2.下载.md
         -
           theme: alt
           text: → TUW文档库 ←
-          link: /notes/doc/faq
+          link: /notes/docs/2-1.前言.md
   -
     type: features
     features:
