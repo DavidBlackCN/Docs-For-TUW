@@ -13,7 +13,7 @@ export default defineUserConfig({
   
   head: [
     // 配置站点图标
-    ['link', { rel: 'icon', type: 'image/png', href: '/image/TUW-logo.png' }],
+    ['link', { rel: 'icon', type: 'image/png', href: 'http://47.108.210.48:40027/i/2025/03/08/67cbdd077efe1.png' }],
   ],
 
 
@@ -30,7 +30,7 @@ export default defineUserConfig({
 - 文档库已全面更新
 - 欢迎来官方交流群做客喵w
 
-![qrcode](/image/qrcode.jpg)
+![qrcode](http://47.108.210.48:40027/i/2025/03/22/67de9922c38fb.jpg)
 `,
     },
     notes,
