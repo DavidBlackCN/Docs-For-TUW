@@ -50,7 +50,7 @@ config:
 * [vuepress](https://vuepress.vuejs.org/)
 * [vuepress-theme-plume](https://theme-plume.vuejs.press/)
 * [VuePress快速上手 (yiov.top)](https://vuepress.yiov.top/)
-* [Live2d | 看板娘](https://github.com/xinlei3166/vuepress-plugin-live2d-plus)
+* [Live2d | 看板娘](https://github.com/oh-my-live2d/oh-my-live2d)
 
 
 ---

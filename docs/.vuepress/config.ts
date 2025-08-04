@@ -3,9 +3,33 @@ import { defineUserConfig } from 'vuepress'
 import { plumeTheme } from 'vuepress-theme-plume'
 import { notes } from './notes'
 import { navbar } from './navbar'
-//import { live2dPlugin } from 'vuepress-plugin-live2d-plus'
+import { oml2dPlugin } from 'vuepress-plugin-oh-my-live2d'
 
 export default defineUserConfig({
+  plugins: [
+    oml2dPlugin({
+      // 在这里配置L2D
+        tips: {
+          idleTips: {
+            wordTheDay: (wordTheDayData) => {
+              return wordTheDayData.hitokoto;
+            }
+          }
+        },
+      dockedPosition: "right",
+      models: [
+        {
+          path: 'https://model.hacxy.cn/HK416-2-normal/model.json',
+          scale: 0.08,
+          position: [-10, 50],
+          stageStyle: {
+            width: 350
+          }
+        },
+      ]
+    })
+
+  ],
   base: '/',
   lang: 'zh-CN',
   title: 'TUW社区图书馆',
@@ -36,14 +60,14 @@ export default defineUserConfig({
     navbar,
     encrypt: {
       rules: {
-        '/docs/2-7.弥赛亚全隐藏收集.md': '血色黎明',
+        '/docs/2-7.弥赛亚全隐藏收集.md': 'xueseliming',
       }
     },
   locales: {
       '/': {
         encryptButtonText: '确认',
         encryptPlaceholder: '输入密码',
-        encryptPageText: '密码提示：《亡灵战争-弥赛亚》6.5章剧情的最后一句红色加粗台词。本攻略面向一周目通关玩家，如果您尚未通关至少一遍地图请不要查看。',
+        encryptPageText: '密码提示：《亡灵战争-弥赛亚》6.5章剧情的最后一句红色加粗台词的拼音。本攻略面向一周目通关玩家，如果您尚未通关至少一遍地图请不要查看。',
       }
     },
 
