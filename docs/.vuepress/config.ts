@@ -47,7 +47,7 @@ export default defineUserConfig({
   theme: plumeTheme({
     bulletin: {
       layout: 'top-right',
-      title: '欢迎来到TUW社区图书馆！',
+      title: '欢迎来到TUW文档库！',
       contentType: 'markdown', 
       content: `\
 - 文档库已全面更新

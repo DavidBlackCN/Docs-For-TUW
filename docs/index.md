@@ -8,7 +8,7 @@ config:
     hero:
       name: The Undead War
       tagline: MCARPG系列《亡灵战争》
-      text: 📑欢迎来到TUW社区图书馆！
+      text: 📑欢迎来到TUW文档库！
       actions:
         -
           theme: brand
