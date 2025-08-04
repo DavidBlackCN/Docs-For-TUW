@@ -32,8 +32,8 @@ export default defineUserConfig({
   ],
   base: '/',
   lang: 'zh-CN',
-  title: 'TUW社区图书馆',
-  description: '📑这是一个图书馆',
+  title: 'TUW文档库',
+  description: '📑这是一个文档库',
   
   head: [
     // 配置站点图标
