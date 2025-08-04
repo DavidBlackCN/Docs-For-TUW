@@ -83,7 +83,7 @@ export default defineUserConfig({
        //注脚
        footer: { 
         copyright: 'Released under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans">CC BY-NC-SA 4.0 License</a>.',
-        message: "UEL Creators | TUW Group | Site Designed by D.B.dev",
+        message: "<a href='https://beian.miit.gov.cn/'>粤ICP备2025435487号-1</a>",
       },
 
 
