@@ -1,6 +1,6 @@
 ## Minecraft RPG系列《亡灵战争》社区图书馆&文档库
 
-[TUW社区图书馆&文档库 (docs-for-tuw.vercel.app)](https://docs-for-tuw.vercel.app/)
+[TUW社区图书馆&文档库 (docs-for-tuw.dege.one)](https://www.mds-union.cn/)
 
 本站点使用 [vuepress](https://vuepress.vuejs.org/) & [vuepress-theme-plume](https://github.com/pengzhanbo/vuepress-theme-plume) 进行搭建。
 
