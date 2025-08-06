@@ -50,8 +50,8 @@ export default defineUserConfig({
       title: '欢迎来到TUW文档库！',
       contentType: 'markdown', 
       content: `\
-- 文档库已全面更新
-- 目前仍有一些bug，尽力抢修中！
+- 纪念版项目由于官方制作组成员反对使用标准格式整合包，目前已停更！
+- 该文档库多数内容仅适用于纪念版项目，请查阅前仔细甄别！
 
 ![qrcode](https://cdn.jsdelivr.net/gh/DavidBlackCN/Docs-For-TUW@main/docs/.vuepress/public/image/qrcode.jpg)
 `,
@@ -91,7 +91,7 @@ export default defineUserConfig({
 
     //autoFrontmatter: false,
     /* 添加您的部署域名, 有助于 SEO, 生成 sitemap */
-    // hostname: 'https://your_site_url',
+     hostname: 'https:www.mds-union.cn',
 
     /* 文档仓库配置，用于 editLink */
     // docsRepo: '',

@@ -9,7 +9,6 @@ export const navbar = defineNavbarConfig([
     text: '更多',
     icon: 'mdi-import',
     items:[
-      { text: '发布页', link: '/notes/docs/发布页.md', icon: 'mdi:page-previous-outline'},
       { text: '鸣谢列表', link: '/notes/docs/鸣谢列表.md', icon: 'mdi:account-heart'},
       { text: '友情链接', link: '/notes/docs/友情链接.md', icon: 'carbon:friendship' },
       { text: 'README', link: '/notes/docs/GITHUB-README.md', icon: 'material-symbols:article-outline'},
