@@ -20,11 +20,11 @@
     "@vuepress/bundler-vite": "2.0.0-rc.24",
     "http-server": "^14.1.1",
     "markdown-it": "14.1.0",
-    "sass-embedded": "^1.86.0",
-    "typescript": "^5.8.2",
-    "vue": "^3.5.13",
+    "sass-embedded": "^1.93.2",
+    "typescript": "^5.9.3",
+    "vue": "^3.5.22",
     "vuepress": "2.0.0-rc.24",
-    "vuepress-plugin-oh-my-live2d": "^0.19.3",
-    "vuepress-theme-plume": "1.0.0-rc.136"
+    "vuepress-plugin-oh-my-live2d": "0.19.3",
+    "vuepress-theme-plume": "1.0.0-rc.164"
   }
 }
