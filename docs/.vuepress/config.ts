@@ -56,7 +56,7 @@ export default defineUserConfig({
 - 由于不可抗拒原因，原交流群已弃用并开启全员禁言模式。
 - 如需交流请扫描下方二维码加入新交流群！
 
-![qrcode](https://cdn.jsdelivr.net/gh/DavidBlackCN/Docs-For-TUW@main/docs/.vuepress/public/image/qrcode.jpg)
+![qrcode](https://cdn.jsdelivr.net/gh/DavidBlackCN/Docs-For-TUW@main/docs/.vuepress/public/image/qrcode-new.jpg)
 `,
     },
     notes,
