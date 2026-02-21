@@ -13,15 +13,17 @@ config:
         -
           theme: brand
           text: → 快速开始 ←
-          link: /notes/docs/1.从这里开始/1.介绍.md
+          link: /docs/1.从这里开始/1.介绍.md
         -
           theme: alt
           text: → 网盘下载 ←
-          link: /notes/docs/1.从这里开始/2.下载.md
+          link: /docs/1.从这里开始/2.下载.md
         -
           theme: alt
           text: → TUW文档库 ←
-          link: /notes/docs/2.社区图书馆&文档库/1.前言.md
+          link: /docs/2.社区图书馆&文档库/1.前言.md
+  -
+    type: Hitokoto
   -
     type: features
     features:

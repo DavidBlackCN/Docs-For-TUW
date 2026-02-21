@@ -1,0 +1,128 @@
+/* --- 字体定义 --- */
+
+@font-face {
+  font-family: 'MapleMono-Medium';
+  src: url('/fonts/MapleMono-Medium.ttf.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LogoFont';
+  src: url('/fonts/Segoesc.woff2') format('woff2'); 
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --- 全局变量与背景 --- */
+:root {
+  /* 基础字体设置 */  
+  --vp-font-family-base: "MapleMono-Medium", sans-serif;
+  --vp-font-family-mono: "MapleMono-Medium", sans-serif;
+
+  /* 背景网格颜色：非常淡的主题色 */
+  --vp-doc-blog-bg: rgba(140, 204, 213, 0.06); 
+  --vp-blog-post-item-hover-border: rgba(140, 204, 213, 0.5);
+  --vp-blog-post-item-hover-shadow: rgba(140, 204, 213, 0.15);
+  
+  /* 确保导航与侧边栏背景是不透明的 */
+  --vp-nav-bg-color: var(--vp-c-bg); 
+  --vp-sidebar-bg-color: var(--vp-c-bg);
+}
+
+[data-theme="dark"] {
+  --vp-doc-blog-bg: rgba(140, 204, 213, 0.04);
+}
+
+body {
+  /* 优化后的网格背景 */
+  background-image:
+    linear-gradient(to bottom, transparent calc(1.5rem - 1px), var(--vp-doc-blog-bg) calc(1.5rem - 1px), var(--vp-doc-blog-bg) 1.5rem),
+    linear-gradient(to right, transparent calc(1.5rem - 1px), var(--vp-doc-blog-bg) calc(1.5rem - 1px), var(--vp-doc-blog-bg) 1.5rem);
+  background-size: 1.5rem 1.5rem;
+  background-attachment: fixed; 
+}
+
+/* --- 导航栏与 Logo --- */
+.vp-navbar {
+  background-color: var(--vp-nav-bg-color) !important;
+  z-index: 20;
+}
+
+.vp-nav.fixed .vp-navbar {
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    backdrop-filter: blur(10px);
+}
+
+/* 搜索框样式 */
+.vp-search-box {
+  background-color: var(--vp-c-bg) !important;
+  border: 4px solid var(--vp-c-divider) !important;
+  border-radius: 12px !important;
+  padding: 0.5rem 1rem !important;
+  font-size: 1.2rem !important;
+  font-weight: 500 !important;
+  font-family: "MapleMono-SemiBold";
+}
+
+.vp-link.link.navbar-menu-link,
+.vp-flyout.vp-navbar-menu-group .button.button span.text {
+    font-size: 18px !important;
+    font-weight: 500;
+    font-family: "MapleMono-SemiBold";
+}
+
+/* Logo 样式：使用渐变主题色 */
+.vp-navbar-title span {
+  font-family: 'LogoFont', serif;
+  font-weight: bolder;
+  font-size: 1.6rem;
+}
+
+.navbar-menu-link {
+  font-size: 1.5rem !important;
+  font-weight: 500;
+}
+
+/* 高亮样式：使用主题色 */
+.vp-doc strong {
+  color: var(--vp-c-brand-1); /* 使用主题色 */
+  padding: 0 2px;
+}
+
+/* 分割线样式 */
+.vp-doc hr {
+  border: none;
+  border-top: 2px solid var(--vp-c-brand-soft);
+  margin: 1.2rem 0;
+}
+
+/* 引用块 (Blockquote) */
+.vp-doc blockquote {
+  border-left: 4px solid var(--vp-c-brand-1);
+  padding: 0.8rem 2.2rem;
+  border-radius: 0 8px 8px 0;
+  margin: 1.5rem 0;
+  font-family: "MapleMono-SemiBold";
+}
+
+/* 翻页器 (Pager) */
+.pager {
+  display: flex;
+  gap: 16px;
+  margin-top: 3rem;
+  font-family: "MapleMono-SemiBold";
+}
+
+.pager-link {
+  border-radius: 12px !important;
+  padding: 1rem !important;
+  transition: all 0.3s ease !important;
+}
+
+.pager-link:hover {
+  border-color: var(--vp-c-brand-1) !important;
+  background-color: var(--vp-c-brand-soft) !important;
+}

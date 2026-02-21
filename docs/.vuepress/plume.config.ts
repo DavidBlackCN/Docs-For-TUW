@@ -1,6 +1,5 @@
 import { defineThemeConfig } from 'vuepress-theme-plume'
 import { navbar } from './navbar'
-import { notes } from './notes'
 
 /**
  * @see https://theme-plume.vuejs.press/config/basic/
@@ -32,6 +31,10 @@ export default defineThemeConfig({
   //   message: 'Power by <a target="_blank" href="https://v2.vuepress.vuejs.org/">VuePress</a> & <a target="_blank" href="https://theme-plume.vuejs.press">vuepress-theme-plume</a>',
   //   copyright: '',
   // },
+  footer: {
+    message: 'Copyright © 2024 - present by DavidBlackCN <br> 🥼Power by <a target="_blank" href="https://v2.vuepress.vuejs.org/">VuePress</a> & <a target="_blank" href="https://theme-plume.vuejs.press">vuepress-theme-plume</a>',
+    copyright: '<img src="/logo/miit.png" width="14" height="14" style="margin-right: 5px; display: inline-block; vertical-align: middle;"><a href="https://beian.miit.gov.cn/" target="_blank" >粤ICP备2025435487号-1</a>',
+  },
 
   /**
    * @see https://theme-plume.vuejs.press/config/basic/#profile
@@ -46,7 +49,6 @@ export default defineThemeConfig({
   },
 
   navbar,
-  notes,
 
   /**
    * 公告板

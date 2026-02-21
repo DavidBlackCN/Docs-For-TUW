@@ -1,4 +1,9 @@
 import { defineClientConfig } from 'vuepress/client'
+import { Layout } from 'vuepress-theme-plume/client'
+import { h } from 'vue'
+import AsideOutlineAfter from './theme/components/AsideOutlineAfter.vue'
+import Hitokoto from './theme/components/Hitokoto.vue'
+import './theme/styles/index.css'
 // import RepoCard from 'vuepress-theme-plume/features/RepoCard.vue'
 // import NpmBadge from 'vuepress-theme-plume/features/NpmBadge.vue'
 // import NpmBadgeGroup from 'vuepress-theme-plume/features/NpmBadgeGroup.vue'
@@ -10,6 +15,8 @@ import { defineClientConfig } from 'vuepress/client'
 
 export default defineClientConfig({
   enhance({ app }) {
+    app.component('AsideOutlineAfter', AsideOutlineAfter)
+    app.component('Hitokoto', Hitokoto)
     // built-in components
     // app.component('RepoCard', RepoCard)
     // app.component('NpmBadge', NpmBadge)
@@ -18,5 +25,12 @@ export default defineClientConfig({
 
     // your custom components
     // app.component('CustomComponent', CustomComponent)
+  },
+
+  layouts: {
+    Layout: () => h(Layout, null, {
+      'aside-outline-after': () => h(AsideOutlineAfter),
+    }
+  ),
   },
 })

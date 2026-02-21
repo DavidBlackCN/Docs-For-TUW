@@ -1,7 +1,7 @@
 import { viteBundler } from '@vuepress/bundler-vite'
 import { defineUserConfig } from 'vuepress'
 import { plumeTheme } from 'vuepress-theme-plume'
-import { notes } from './notes'
+import { collections } from './collections'
 import { navbar } from './navbar'
 import { oml2dPlugin } from 'vuepress-plugin-oh-my-live2d'
 
@@ -45,6 +45,7 @@ export default defineUserConfig({
   shouldPrefetch: false, // 站点较大，页面数量较多时，不建议启用
 
   theme: plumeTheme({
+    copyright: 'CC-BY-NC-SA-4.0',
     markdown: {
       timeline: true, 
     },
@@ -59,7 +60,7 @@ export default defineUserConfig({
 ![qrcode](https://cdn.jsdelivr.net/gh/DavidBlackCN/Docs-For-TUW@main/docs/.vuepress/public/image/qrcode-new.jpg)
 `,
     },
-    notes,
+    collections,
     navbar,
     encrypt: {
       rules: {
@@ -109,7 +110,6 @@ export default defineUserConfig({
      * 博客
      * @see https://theme-plume.vuejs.press/config/basic/#blog
      */
-     blog: false, // 禁用博客
     // blog: {
     //   postList: true, // 是否启用文章列表页
     //   tags: true, // 是否启用标签页
