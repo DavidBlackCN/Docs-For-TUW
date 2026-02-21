@@ -66,7 +66,7 @@ pnpm docs:build
 # preview production build in local
 pnpm docs:preview
 # update vuepress and theme
-pnpm vp-update
+pnpm dlx vp-update
 ```
 
 
