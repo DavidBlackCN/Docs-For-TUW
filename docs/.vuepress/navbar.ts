@@ -3,6 +3,7 @@ import { defineNavbarConfig } from 'vuepress-theme-plume'
 export const navbar = defineNavbarConfig([
   { text: '首页', link: '/', icon: 'material-symbols-light:bookmark-star' },
   { text: '指南', link: '/docs/1.从这里开始/1.介绍.md',icon: 'icon-park-outline:guide-board' },
+  { text: '发布帖', link: '/post/', icon: 'material-symbols-light:add-comment' },
   { text: '图书馆', link: '/docs/2.社区图书馆&文档库/1.前言.md', icon: 'material-symbols-light:book-2' },
   { text: '更新日志', link: '/docs/4.更多/3.更新日志.md', icon: 'material-symbols:logo-dev-outline-rounded'},
   { 

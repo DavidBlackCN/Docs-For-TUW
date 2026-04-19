@@ -28,6 +28,13 @@ export const docs = defineCollection({
   sidebar: 'auto',
 })
 
+export const post = defineCollection({
+  type: 'post',
+  dir: 'post',
+  title: '发布帖'
+})
+
 export const collections = defineCollections([
     docs,
+    post
 ])
