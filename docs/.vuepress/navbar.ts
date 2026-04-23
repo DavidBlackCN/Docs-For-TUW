@@ -3,16 +3,16 @@ import { defineNavbarConfig } from 'vuepress-theme-plume'
 export const navbar = defineNavbarConfig([
   { text: '首页', link: '/', icon: 'material-symbols-light:bookmark-star' },
   { text: '指南', link: '/docs/1.从这里开始/1.介绍.md',icon: 'icon-park-outline:guide-board' },
-  { text: '发布帖', link: '/post/', icon: 'material-symbols-light:add-comment' },
+  { text: '施工中', link: '/post/', icon: 'material-symbols-light:construction' },
   { text: '图书馆', link: '/docs/2.社区图书馆&文档库/1.前言.md', icon: 'material-symbols-light:book-2' },
-  { text: '更新日志', link: '/docs/4.更多/3.更新日志.md', icon: 'material-symbols:logo-dev-outline-rounded'},
+  { text: '更新日志', link: '/docs/3.更多/3.网站更新日志.md', icon: 'material-symbols:logo-dev-outline-rounded'},
   { 
     text: '更多',
     icon: 'mdi-import',
     items:[
-      { text: '鸣谢列表', link: '/docs/4.更多/1.鸣谢列表.md', icon: 'mdi:account-heart'},
-      { text: '友情链接', link: '/docs/4.更多/2.友情链接.md', icon: 'carbon:friendship' },
-      { text: 'README', link: '/docs/4.更多/4.GITHUB-README.md', icon: 'material-symbols:article-outline'},
+      { text: '鸣谢列表', link: '/docs/3.更多/1.鸣谢列表.md', icon: 'mdi:account-heart'},
+      { text: '友情链接', link: '/docs/3.更多/2.友情链接.md', icon: 'carbon:friendship' },
+      { text: 'README', link: '/docs/3.更多/6.GITHUB-README.md', icon: 'material-symbols:article-outline'},
       {
         text: 'Vuepress',
         items: [

@@ -40,9 +40,9 @@ export default defineThemeConfig({
    * @see https://theme-plume.vuejs.press/config/basic/#profile
    */
   profile: {
-    avatar: 'https://theme-plume.vuejs.press/plume.png',
-    name: 'My Vuepress Site',
-    description: 'test',
+    avatar: 'https://cdn.jsdelivr.net/gh/DavidBlackCN/Docs-For-TUW@main/docs/.vuepress/public/image/TUW-logo.png',
+    name: 'TUW社区图书馆',
+    description: '发布帖正在施工中，敬请期待！',
     // circle: true,
     // location: '',
     // organization: '',
