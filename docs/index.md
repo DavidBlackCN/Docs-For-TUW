@@ -1,29 +1,25 @@
 ---
 home: true
 config:
-  -
-    type: hero
-    background: tint-plate
-    full: ture
+  - type: HomePage
+    full: true
     hero:
-      name: The Undead War
-      tagline: MCARPG系列《亡灵战争》
-      text: 📑欢迎来到TUW社区图书馆！
+      name: 『The Undead War』
+      text: MCARPG系列《亡灵战争》
+      # tagline: Honahec's Blog
       actions:
-        -
-          theme: brand
-          text: → 快速开始 ←
-          link: /docs/1.从这里开始/1.介绍.md
-        -
-          theme: alt
-          text: → 网盘下载 ←
-          link: /docs/1.从这里开始/2.下载.md
-        -
-          theme: alt
-          text: → TUW文档库 ←
-          link: /docs/2.社区图书馆&文档库/1.前言.md
-  -
-    type: Hitokoto
+        - theme: brand
+          text: -> 快速开始 <-
+          link: /docs/介绍/
+        - theme: brand
+          text: -> 网盘下载 <-
+          link: /docs/下载/
+        - theme: brand
+          text: -> 文档库 <-
+          link: /docs/前言/
+        - theme: brand
+          text: -> 亡圈文学笑话 <-
+          link: /post/3ud6f2z5/
   -
     type: features
     features:
@@ -94,3 +90,4 @@ pnpm docs:preview
 # update vuepress and theme
 pnpm vp-update
 ```
+---
