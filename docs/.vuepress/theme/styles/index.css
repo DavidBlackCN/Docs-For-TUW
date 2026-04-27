@@ -126,3 +126,8 @@ body {
   border-color: var(--vp-c-brand-1) !important;
   background-color: var(--vp-c-brand-soft) !important;
 }
+
+/* 移除OhMyLive2D的交互以修复遮挡元素无法交互的问题*/
+#oml2d-stage {
+  pointer-events: none;
+}

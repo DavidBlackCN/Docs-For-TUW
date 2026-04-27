@@ -723,46 +723,107 @@ onBeforeUnmount(() => {
 
 /* --- 响应式 --- */
 @media (max-width: 640px) {
+  /* ── 整体文字区域定位 ── */
   .hero-overlay-text {
     left: 20px;
-    top: 45%;
+    right: 20px;          /* 新增：限制右边界，防止溢出 */
+    top: 42%;
     transform: translateY(-50%);
   }
-
+  /* ── text-block 允许自然撑高 ── */
+  .text-block {
+    width: 100%;
+  }
+  /* ── 大字行：改为自动高度，避免换行后内容重叠 ── */
   .line-slot--lg {
-    height: clamp(36px, 10vw, 52px);
+    height: auto;          /* 覆盖固定高度 */
+    min-height: clamp(40px, 12vw, 56px);
+    margin-bottom: 8px;
   }
-
+  /* ── 小字行 ── */
+  .line-slot--sm {
+    height: auto;
+    min-height: 28px;
+    margin-top: 12px;
+  }
+  /* ── 社交图标行：自动高度，防止图标被裁切 ── */
+  .line-slot--social {
+    height: auto;
+    min-height: 52px;
+    margin-top: 16px;
+  }
+  /* ── 打字机主文字 ── */
   .typewriter-line {
-    font-size: clamp(28px, 8.5vw, 40px);
-    white-space: normal;
+    position: relative;    /* 覆盖 absolute，让行高自然撑开父容器 */
+    top: auto;
+    left: auto;
+    font-size: clamp(26px, 8vw, 38px);
+    white-space: normal;   /* 允许换行 */
+    word-break: break-word;
+    line-height: 1.25;
+    display: block;
   }
-
+  /* ── 第三行小字 ── */
   .hero-overlay-text__sub {
+    position: relative;    /* 覆盖 absolute */
+    top: auto;
+    left: auto;
     white-space: normal;
-    font-size: 13px;
+    word-break: break-word;
+    font-size: clamp(13px, 3.5vw, 17px);
+    line-height: 1.5;
   }
-
-  .hero-card {
-    padding: 48px 24px;
-  }
-
-  .scroll-down-hint {
-    bottom: 100px;
-  }
-
+  /* ── 社交图标容器 ── */
   .social-links {
+    position: relative;    /* 覆盖 absolute */
+    top: auto;
+    left: auto;
     gap: 10px;
+    flex-wrap: wrap;       /* 图标过多时允许换行 */
   }
-
+  /* ── 单个社交图标 ── */
   .social-link {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
   }
-
   .social-icon {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
+  }
+  /* ── 滚动提示：避免被底部导航栏遮挡 ── */
+  .scroll-down-hint {
+    bottom: 90px;
+  }
+  /* ── 第二部分卡片 ── */
+  .hero-content-section {
+    padding: 0 16px 80px;
+    margin-top: 6vh;
+  }
+  .hero-card {
+    padding: 36px 20px;
+    border-radius: 20px;
+  }
+  .hero-card__name {
+    font-size: clamp(28px, 8vw, 40px);
+    margin-bottom: 16px;
+    letter-spacing: 0.1em;
+  }
+  .hero-card__title {
+    font-size: clamp(22px, 6vw, 32px);
+  }
+  .hero-card__tagline {
+    font-size: clamp(14px, 3.5vw, 16px);
+    margin-bottom: 32px;
+  }
+  .hero-card__actions {
+    gap: 12px;
+  }
+  .vp-button {
+    padding: 0 24px;
+    line-height: 44px;
+    font-size: 14px;
+    border-radius: 22px;
   }
 }
 </style>
