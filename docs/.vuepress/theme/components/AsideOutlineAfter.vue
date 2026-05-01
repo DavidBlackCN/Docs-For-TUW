@@ -22,7 +22,7 @@
         </a>
         <a
             class="vp-link"
-            href="https://afdian.com/a/DBdev"
+            href="https://afdian.com/a/davidblackcn"
             target="_blank"
             rel="noreferrer"
         >
