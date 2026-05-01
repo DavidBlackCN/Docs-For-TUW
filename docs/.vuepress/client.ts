@@ -6,6 +6,7 @@ import Hitokoto from './theme/components/Hitokoto.vue'
 import NeteaseMusicCard from './theme/components/NeteaseMusicCard.vue'
 import EmptyDiv from './theme/components/EmptyDiv.vue'
 import HomePage from './theme/components/HomePage.vue'
+import GitHubCard from './theme/components/GitHubCard.vue'
 import './theme/styles/index.css'
 // import RepoCard from 'vuepress-theme-plume/features/RepoCard.vue'
 // import NpmBadge from 'vuepress-theme-plume/features/NpmBadge.vue'
@@ -23,6 +24,7 @@ export default defineClientConfig({
     app.component('NeteaseMusicCard', NeteaseMusicCard)
     app.component('EmptyDiv', EmptyDiv)
     app.component('HomePage', HomePage)
+    app.component('GitHubCard', GitHubCard)
     // built-in components
     // app.component('RepoCard', RepoCard)
     // app.component('NpmBadge', NpmBadge)
