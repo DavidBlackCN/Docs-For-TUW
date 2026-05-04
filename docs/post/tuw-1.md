@@ -39,6 +39,22 @@ permalink: /post/apknyvpf/
 场景内的细节相比前作也有了巨大的提升。
 :::
 
+![](/image/1-1.png)
+
+![](/image/1-2.png)
+
+![](/image/1-3.png)
+
+![](/image/1-4.png)
+
+![](/image/1-5.png)
+
+![](/image/1-6.png)
+
+![](/image/1-7.png)
+
+![](/image/1-8.png)
+
 <EmptyDiv/>
 
 <EmptyDiv/>
@@ -49,6 +65,12 @@ permalink: /post/apknyvpf/
 人类与亡灵族的阵营体系，  
 与各个阵营之间的明争暗斗将清晰地体现在剧情中。  
 游戏中出现的角色也会带有各个阵营的**独特文化特征**。
+
+![](/image/1-9.png)
+
+![](/image/1-10.png)
+
+![](/image/1-11.png)
 :::
 
 <EmptyDiv/>
@@ -60,6 +82,8 @@ permalink: /post/apknyvpf/
 我们为所有主要角色都绘制了**原创皮肤**！  
 每一个角色的皮肤与台词都经过了精心设计，百般打磨，  
 充分表现了他们的**人格与文化**。
+
+![](/image/1-12.png)
 :::
 
 <EmptyDiv/>
@@ -75,6 +99,8 @@ permalink: /post/apknyvpf/
 将会讲述为何人类会在第一部亡灵战争胜利后，又开始走上**自相残杀的老路**！  
 :::
 
+![](/image/1-23.png)
+
 <EmptyDiv/>
 
 <EmptyDiv/>
@@ -86,6 +112,8 @@ permalink: /post/apknyvpf/
 在这全新的世界里，**死亡之影·凋灵**将会极为凶残！  
 为了人类，流尽你的最后一滴血吧，被选中的弥赛亚！
 :::
+
+![](/image/1-22.png)
 
 <EmptyDiv/>
 
@@ -100,6 +128,10 @@ permalink: /post/apknyvpf/
 **所有技能均有音效，以及我们手工绘制的原创技能图标！**
 :::
 
+![](/image/1-13.png)
+
+![](/image/1-14.png)
+
 <EmptyDiv/>
 
 <EmptyDiv/>
@@ -113,6 +145,12 @@ permalink: /post/apknyvpf/
 你当然也可以成为一个**无坚不摧的坦克**！BOSS放技能了？用脸接！
 :::
 
+![](/image/1-15.png)
+
+![](/image/1-16.png)
+
+![](/image/1-17.png)
+
 <EmptyDiv/>
 
 <EmptyDiv/>
@@ -123,10 +161,20 @@ permalink: /post/apknyvpf/
 我们在制作的过程中也将**各式各样好玩的彩蛋**融入了地图。
 :::
 
+![](/image/1-18.png)
+
+![](/image/1-19.png)
+
+![](/image/1-20.png)
+
+![](/image/1-21.png)
+
+![](/image/1-24.png)
+
 <EmptyDiv/>
 
 <EmptyDiv/>
 
 ::: center
-# 准备好开启属于你的弥赛亚之途了吗，士兵？
+# **准备好开启属于你的弥赛亚之途了吗，士兵？**
 :::

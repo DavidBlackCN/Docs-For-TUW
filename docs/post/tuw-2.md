@@ -30,6 +30,16 @@ permalink: /post/q5cqgfs1/
 这里展示的仅仅是第二部庞大场景的一部分  
 :::
 
+![](/image/2-1.png)
+
+![](/image/2-2.png)
+
+![](/image/2-3.png)
+
+![](/image/2-4.png)
+
+![](/image/2-5.png)
+
 <EmptyDiv/>
 
 <EmptyDiv/>
@@ -39,6 +49,8 @@ permalink: /post/q5cqgfs1/
 亡灵战争的特色就是饱满且丰富的剧情  
 数万字的剧情将由命令方块自动播放    
 :::
+
+> 【编者注】此处无需配图，CB链播放剧情在2026年本身就是过时的设计
 
 <EmptyDiv/>
 
@@ -52,6 +64,10 @@ permalink: /post/q5cqgfs1/
 带来酣畅淋漓的战斗体验！  
 :::
 
+![](/image/2-6.png)
+
+![](/image/2-7.png)
+
 <EmptyDiv/>
 
 <EmptyDiv/>
@@ -61,6 +77,8 @@ permalink: /post/q5cqgfs1/
 地图自带多首作者精心挑选和剪辑的  
 背景音乐，将在各章节自动播放  
 :::
+
+> 【编者注】BGM收集可参考[此处](/docs/BGM收集/)
 
 <EmptyDiv/>
 
@@ -72,6 +90,8 @@ permalink: /post/q5cqgfs1/
 隐藏的结局也只有在选择  
 **“特种兵”**或者**“救世主”**难度时才能解锁    
 :::
+
+![](/image/2-8.png)
 
 <EmptyDiv/>
 
@@ -87,6 +107,12 @@ permalink: /post/q5cqgfs1/
 3号隐藏结局只有在**特种兵或以上难度**才可以进入。  
 :::
 
+![](/image/2-9.png)
+
 <EmptyDiv/>
 
 <EmptyDiv/>
+
+::: center
+# **更多精彩，等待您去发现。**
+:::
