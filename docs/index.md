@@ -6,7 +6,6 @@ config:
     hero:
       name: 『The Undead War』
       text: MCARPG系列《亡灵战争》
-      # tagline: Honahec's Blog
       actions:
         - theme: brand
           text: -> 快速开始 <-
@@ -16,7 +15,7 @@ config:
           link: /docs/下载/
         - theme: brand
           text: -> 文档库 <-
-          link: /docs/前言/
+          link: /docs/从这里开始/
         - theme: brand
           text: -> 亡圈文学笑话 <-
           link: /post/3ud6f2z5/
