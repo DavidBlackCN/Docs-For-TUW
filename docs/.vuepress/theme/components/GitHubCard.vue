@@ -80,44 +80,68 @@
 
 <script setup>
 import { ref, onMounted, watch } from 'vue';
-
 const props = defineProps({
   url: { type: String, required: true }
 });
-
 const repoData = ref(null);
 const loading = ref(true);
 const error = ref(null);
-
 let cachedColors = null;
-
+// ✅ 使用 jsDelivr CDN 作为主源，完全避免代理问题
+const COLOR_SOURCES = [
+  'https://cdn.jsdelivr.net/gh/ozh/github-colors@master/colors.json',
+  'https://raw.githubusercontent.com/ozh/github-colors/master/colors.json',
+];
+const fetchColors = async () => {
+  if (cachedColors) return cachedColors;
+  for (const url of COLOR_SOURCES) {
+    try {
+      const res = await fetch(url);
+      if (!res.ok) continue;
+      // ✅ 核心修复：防止拿到 HTML 页面当 JSON 解析
+      const contentType = res.headers.get('content-type') || '';
+      if (contentType.includes('text/html')) {
+        console.warn(`[GitHubCard] ${url} returned HTML, trying next source...`);
+        continue;
+      }
+      const data = await res.json();
+      cachedColors = data;
+      return data;
+    } catch (e) {
+      console.warn(`[GitHubCard] Color fetch failed (${url}):`, e.message);
+    }
+  }
+  cachedColors = {}; // 降级处理
+  return {};
+};
 const parseRepoUrl = (url) => {
   if (!url) return null;
-  const cleanUrl = url.replace(/\/$/, ""); 
-  const match = cleanUrl.match(/github\.com\/([^/]+)\/([^/]+)/) || cleanUrl.match(/^([^/]+)\/([^/]+)$/);
+  const cleanUrl = url.replace(/\/$/, '');
+  const match =
+    cleanUrl.match(/github\.com\/([^/]+)\/([^/]+)/) ||
+    cleanUrl.match(/^([^/]+)\/([^/]+)$/);
   return match ? { owner: match[1], repo: match[2] } : null;
 };
-
 const fetchRepoData = async () => {
   const info = parseRepoUrl(props.url);
   if (!info) {
-    error.value = "Invalid GitHub URL";
+    error.value = 'Invalid GitHub URL';
     loading.value = false;
     return;
   }
   loading.value = true;
   error.value = null;
+  repoData.value = null;
   try {
-    const [repoRes, colorRes] = await Promise.all([
+    const [repoRes, colorData] = await Promise.all([
       fetch(`https://api.github.com/repos/${info.owner}/${info.repo}`),
-      cachedColors 
-        ? Promise.resolve(cachedColors) 
-        : fetch('https://gh.llkk.cc/https://raw.githubusercontent.com/ozh/github-colors/master/colors.json').then(r => r.json())
+      fetchColors(),
     ]);
-    if (!repoRes.ok) throw new Error(`Repo not found (${repoRes.status})`);
-    cachedColors = colorRes;
+    if (!repoRes.ok) {
+      throw new Error(`Repo not found (${repoRes.status})`);
+    }
     const data = await repoRes.json();
-    data._colors = colorRes;
+    data._colors = colorData;
     repoData.value = data;
   } catch (err) {
     error.value = err.message;
@@ -125,17 +149,24 @@ const fetchRepoData = async () => {
     loading.value = false;
   }
 };
-
-const getLanguageColor = (lang) => repoData.value?._colors?.[lang]?.color || '#ccc';
-const formatNumber = (num) => num >= 1000 ? (num / 1000).toFixed(1) + 'k' : num;
-const formatDate = (date) => new Date(date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
-
+const getLanguageColor = (lang) =>
+  repoData.value?._colors?.[lang]?.color || '#ccc';
+const formatNumber = (num) =>
+  num >= 1000 ? (num / 1000).toFixed(1) + 'k' : num;
+const formatDate = (date) =>
+  new Date(date).toLocaleDateString(undefined, {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
 const viewLicense = () => {
   if (repoData.value) {
-    window.open(`${repoData.value.html_url}/blob/${repoData.value.default_branch}/LICENSE`, '_blank');
+    window.open(
+      `${repoData.value.html_url}/blob/${repoData.value.default_branch}/LICENSE`,
+      '_blank'
+    );
   }
 };
-
 onMounted(fetchRepoData);
 watch(() => props.url, fetchRepoData);
 </script>
