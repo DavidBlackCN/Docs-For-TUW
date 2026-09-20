@@ -1,0 +1,53 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "启动开发服务器",
+      "detail": "运行 docs:dev。",
+      "type": "process",
+      "command": "pnpm",
+      "args": ["docs:dev"],
+      "group": "build",
+      "problemMatcher": [],
+      "presentation": {
+        "focus": true,
+        "panel": "dedicated"
+      },
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "Git Commit CZ",
+      "detail": "启动交互式规范提交。",
+      "type": "process",
+      "command": "pnpm",
+      "args": ["commit"],
+      "group": "build",
+      "problemMatcher": [],
+      "presentation": {
+        "focus": true,
+        "panel": "dedicated"
+      },
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "检查并更新主题",
+      "detail": "运行 dlx vp-update。",
+      "type": "process",
+      "command": "pnpm",
+      "args": ["dlx", "vp-update"],
+      "group": "build",
+      "problemMatcher": [],
+      "presentation": {
+        "focus": true,
+        "panel": "dedicated"
+      },
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    }
+  ]
+}
