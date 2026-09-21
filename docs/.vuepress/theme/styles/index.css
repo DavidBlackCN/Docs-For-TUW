@@ -42,10 +42,16 @@
   --vp-c-border: #d8d5ce;
   --vp-c-divider: #e9e5dc;
   --vp-c-gutter: #e9e5dc;
-  --vp-nav-bg-color: rgba(255, 252, 245, .82);
+  --vp-nav-bg-color: rgba(255, 252, 245, .72);
+  --vp-nav-overlay: rgba(255, 252, 245, .36);
+  --vp-nav-shadow: rgba(80, 75, 60, .12);
   --vp-nav-screen-bg-color: #fffcf5;
   --vp-local-nav-bg-color: #fffdfa;
-  --vp-sidebar-bg-color: #f5f1e8;
+  --vp-sidebar-bg-color: rgba(245, 241, 232, .68);
+  --vp-sidebar-overlay: rgba(255, 252, 245, .28);
+  --vp-sidebar-border: rgba(80, 134, 161, .18);
+  --vp-sidebar-shadow: rgba(80, 75, 60, .1);
+  --vp-grid-image: linear-gradient(to bottom, transparent calc(1.5rem - 1px), var(--vp-doc-blog-bg) calc(1.5rem - 1px), var(--vp-doc-blog-bg) 1.5rem), linear-gradient(to right, transparent calc(1.5rem - 1px), var(--vp-doc-blog-bg) calc(1.5rem - 1px), var(--vp-doc-blog-bg) 1.5rem);
   --vp-code-block-bg: #f5f1e8;
   --vp-c-warning-1: #9a6a12;
   --vp-doc-blog-bg: rgba(80, 134, 161, .06);
@@ -82,10 +88,15 @@ html.dark, [data-theme="dark"] {
   --vp-c-border: #3c4046;
   --vp-c-divider: #303338;
   --vp-c-gutter: #303338;
-  --vp-nav-bg-color: rgba(27, 28, 31, .82);
+  --vp-nav-bg-color: rgba(27, 28, 31, .72);
+  --vp-nav-overlay: rgba(27, 28, 31, .38);
+  --vp-nav-shadow: rgba(0, 0, 0, .24);
   --vp-nav-screen-bg-color: #1b1c1f;
   --vp-local-nav-bg-color: #202226;
-  --vp-sidebar-bg-color: #17181a;
+  --vp-sidebar-bg-color: rgba(23, 24, 26, .7);
+  --vp-sidebar-overlay: rgba(23, 24, 26, .3);
+  --vp-sidebar-border: rgba(255, 255, 255, .08);
+  --vp-sidebar-shadow: rgba(0, 0, 0, .24);
   --vp-code-block-bg: #202226;
   --vp-c-warning-1: #dfbd65;
   --vp-doc-blog-bg: rgba(118, 169, 188, .04);
@@ -227,11 +238,75 @@ html.layout-home .vp-home .vp-home-custom {
   to { opacity: 1; transform: translateY(0); }
 }
 
-.vp-navbar { z-index: 20; background: transparent !important; }
-.vp-navbar.top { background: transparent !important; box-shadow: none !important; }
-.vp-navbar:not(.top), .vp-navbar.screen-open { background: var(--vp-nav-bg-color) !important; box-shadow: 0 4px 18px rgba(25, 30, 34, .08); backdrop-filter: blur(14px) saturate(125%); }
+.vp-navbar {
+  z-index: 20;
+  background-color: transparent !important;
+  background-image: linear-gradient(var(--vp-nav-overlay), var(--vp-nav-overlay)), var(--vp-grid-image) !important;
+  background-attachment: fixed;
+  background-size: auto, 1.5rem 1.5rem;
+}
+.vp-navbar.top { background: transparent !important; background-image: none !important; box-shadow: none !important; backdrop-filter: none; }
+.vp-navbar:not(.top), .vp-navbar.screen-open {
+  background-color: var(--vp-nav-bg-color) !important;
+  background-image: linear-gradient(var(--vp-nav-overlay), var(--vp-nav-overlay)), var(--vp-grid-image) !important;
+  box-shadow: 0 4px 18px var(--vp-nav-shadow);
+  backdrop-filter: blur(14px) saturate(125%);
+}
+.vp-navbar:not(.top)::before {
+  position: absolute;
+  inset: 0 0 0 var(--vp-sidebar-width);
+  z-index: -1;
+  background-color: var(--vp-nav-bg-color);
+  background-image: linear-gradient(var(--vp-nav-overlay), var(--vp-nav-overlay)), var(--vp-grid-image);
+  background-attachment: fixed;
+  background-size: auto, 1.5rem 1.5rem;
+  box-shadow: 0 4px 18px var(--vp-nav-shadow);
+  content: '';
+  pointer-events: none;
+}
+.vp-navbar:not(.top) .wrapper,
+.vp-navbar:not(.top) .container,
+.vp-navbar:not(.top) .title,
+.vp-navbar:not(.top) .vp-navbar-title {
+  background: transparent !important;
+}
+.vp-navbar.has-sidebar:not(.top) .content-body,
+.vp-navbar.has-sidebar:not(.top) .title,
+.vp-navbar.has-sidebar:not(.top) .vp-navbar-title,
+.vp-navbar.has-sidebar:not(.top) .vp-navbar-title .title {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+.vp-nav:has(.vp-navbar.has-sidebar) {
+  background: transparent !important;
+}
+.vp-navbar.has-sidebar:not(.screen-open) {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+.vp-navbar.has-sidebar:not(.screen-open)::before {
+  inset: 0 0 0 var(--vp-sidebar-width);
+  background-color: var(--vp-nav-bg-color);
+  background-image: linear-gradient(var(--vp-nav-overlay), var(--vp-nav-overlay)), var(--vp-grid-image);
+  background-attachment: fixed;
+  background-size: auto, 1.5rem 1.5rem;
+  box-shadow: 0 4px 18px var(--vp-nav-shadow);
+}
+.vp-navbar:not(.top) { background: transparent !important; box-shadow: none; backdrop-filter: none; }
+.vp-navbar.screen-open { background: var(--vp-nav-bg-color) !important; }
 .vp-navbar .divider-line { background: transparent !important; }
 .vp-navbar:not(.top) .divider-line { background: color-mix(in srgb, var(--vp-c-divider) 75%, transparent) !important; }
+.vp-sidebar {
+  background-color: var(--vp-sidebar-bg-color) !important;
+  background-image: linear-gradient(var(--vp-sidebar-overlay), var(--vp-sidebar-overlay)), var(--vp-grid-image) !important;
+  background-attachment: fixed;
+  background-size: auto, 1.5rem 1.5rem;
+  backdrop-filter: blur(10px) saturate(112%);
+  box-shadow: inset -1px 0 0 var(--vp-sidebar-border), 8px 0 24px var(--vp-sidebar-shadow);
+}
+.vp-sidebar .sidebar-items { background: transparent !important; }
 .vp-navbar-title span { font-family: 'LogoFont', var(--vp-font-family-base); font-size: 1.6rem; font-weight: 700; }
 .vp-link.link.navbar-menu-link, .vp-flyout.vp-navbar-menu-group .button.button span.text { font-family: var(--vp-font-family-base); font-size: 1.125rem !important; font-weight: 500; }
 .vp-search-box { background: var(--vp-c-bg-elv) !important; border: 1px solid var(--vp-c-border) !important; border-radius: 8px !important; }
@@ -419,4 +494,47 @@ html.layout-home.theme-transitioning .hero-visual, html.layout-home.theme-transi
   .vp-navbar .social-links { display: none; }
 }
 
+@media (max-width: 959px) {
+  .vp-navbar:not(.top)::before { inset: 0; }
+}
+
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; } }
+
+/* Documentation pages use one continuous navbar surface. The title area must
+   share that surface instead of exposing a different layer above the sidebar. */
+html:not(.layout-home) .vp-nav {
+  background: transparent !important;
+}
+
+html:not(.layout-home) .vp-navbar,
+html:not(.layout-home) .vp-navbar.top,
+html:not(.layout-home) .vp-navbar:not(.top),
+html:not(.layout-home) .vp-navbar.screen-open {
+  background-color: var(--vp-nav-bg-color) !important;
+  background-image: linear-gradient(var(--vp-nav-overlay), var(--vp-nav-overlay)), var(--vp-grid-image) !important;
+  background-attachment: fixed;
+  background-size: auto, 1.5rem 1.5rem;
+  box-shadow: 0 4px 18px var(--vp-nav-shadow) !important;
+  backdrop-filter: blur(14px) saturate(125%);
+}
+
+html:not(.layout-home) .vp-navbar::before,
+html:not(.layout-home) .vp-navbar.has-sidebar::before {
+  display: none !important;
+}
+
+html:not(.layout-home) .vp-navbar .wrapper,
+html:not(.layout-home) .vp-navbar .container,
+html:not(.layout-home) .vp-navbar .title,
+html:not(.layout-home) .vp-navbar .content,
+html:not(.layout-home) .vp-navbar .content-body,
+html:not(.layout-home) .vp-navbar .vp-navbar-title,
+html:not(.layout-home) .vp-navbar .vp-navbar-title .title {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+html:not(.layout-home) .vp-navbar .divider-line {
+  background: color-mix(in srgb, var(--vp-c-divider) 75%, transparent) !important;
+}
