@@ -7,15 +7,9 @@ import NeteaseMusicCard from './theme/components/NeteaseMusicCard.vue'
 import EmptyDiv from './theme/components/EmptyDiv.vue'
 import HomePage from './theme/components/HomePage.vue'
 import GitHubCard from './theme/components/GitHubCard.vue'
+import ColorStylePicker from './theme/components/ColorStylePicker.vue'
+import ThemeAppearanceSwitch from './theme/components/ThemeAppearanceSwitch.vue'
 import './theme/styles/index.css'
-// import RepoCard from 'vuepress-theme-plume/features/RepoCard.vue'
-// import NpmBadge from 'vuepress-theme-plume/features/NpmBadge.vue'
-// import NpmBadgeGroup from 'vuepress-theme-plume/features/NpmBadgeGroup.vue'
-// import Swiper from 'vuepress-theme-plume/features/Swiper.vue'
-
-// import CustomComponent from './theme/components/Custom.vue'
-
-// import './theme/styles/custom.css'
 
 export default defineClientConfig({
   enhance({ app }) {
@@ -25,20 +19,20 @@ export default defineClientConfig({
     app.component('EmptyDiv', EmptyDiv)
     app.component('HomePage', HomePage)
     app.component('GitHubCard', GitHubCard)
-    // built-in components
-    // app.component('RepoCard', RepoCard)
-    // app.component('NpmBadge', NpmBadge)
-    // app.component('NpmBadgeGroup', NpmBadgeGroup)
-    // app.component('Swiper', Swiper) // you should install `swiper`
-
-    // your custom components
-    // app.component('CustomComponent', CustomComponent)
+    app.component('ColorStylePicker', ColorStylePicker)
+    app.component('ThemeAppearanceSwitch', ThemeAppearanceSwitch)
   },
-
   layouts: {
     Layout: () => h(Layout, null, {
       'aside-outline-after': () => h(AsideOutlineAfter),
-    }
-  ),
+      'nav-bar-content-after': () => h('div', { class: 'custom-nav-controls' }, [
+        h(ColorStylePicker),
+        h(ThemeAppearanceSwitch),
+      ]),
+      'nav-screen-content-after': () => h('div', { class: 'custom-nav-screen-controls' }, [
+        h(ColorStylePicker),
+        h(ThemeAppearanceSwitch),
+      ]),
+    }),
   },
 })

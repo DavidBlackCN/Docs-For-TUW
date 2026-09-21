@@ -1,829 +1,192 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref } from "vue";
-import { RouterLink } from "vue-router";
-import { Icon } from "@iconify/vue";
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { RouterLink } from 'vue-router'
+import { Icon } from '@iconify/vue'
 
-type HeroAction = {
-  text: string;
-  link?: string;
-  theme?: "brand" | "alt" | "ghost" | "outline" | string;
-};
+type HeroAction = { text: string; link?: string; theme?: string }
+type HeroConfig = { name?: string; text?: string; tagline?: string; actions?: HeroAction[]; background?: string }
 
-type HeroConfig = {
-  name?: string;
-  text?: string;
-  tagline?: string;
-  actions?: HeroAction[];
-  background?: string;
-};
+const props = defineProps<{ hero?: HeroConfig }>()
+const hero = computed(() => props.hero ?? {})
+const bgImage = computed(() => hero.value.background || '/image/Blake.png')
+const line1Text = '[世界]Blake·Wilson'
+const line2Text = '加入了游戏'
+const line3Text = '欢迎来到 TUW 社区图书馆！'
+const displayLine1 = ref('')
+const displayLine2 = ref('')
+const showLine3 = ref(false)
+const showActions = ref(false)
+const showSocialLinks = ref(false)
+const showScrollIndicator = ref(true)
+const line2Completed = ref(false)
+const bgRef = ref<HTMLElement | null>(null)
+const socialVisible = ref<boolean[]>([])
+let timers: ReturnType<typeof setTimeout>[] = []
 
-const props = defineProps<{
-  hero?: HeroConfig;
-}>();
-
-const hero = computed(() => props.hero ?? null);
-const bgImage = computed(
-  () =>
-    hero.value?.background ||
-    "https://cdn.jsdelivr.net/gh/DavidBlackCN/Docs-For-TUW@main/docs/.vuepress/public/image/Blake.png"
-);
-
-const isExternalLink = (link?: string) =>
-  typeof link === "string" && /^(https?:)?\/\//.test(link);
-
-const bgRef = ref<HTMLElement | null>(null);
-const showScrollIndicator = ref(true);
-
-// --- 打字机效果相关 ---
-const line1Text = "[世界]Blake·Wilson";
-const line2Text = "加入了游戏";
-const line3Text = "欢迎来到TUW社区图书馆！";
-
-const displayLine1 = ref("");
-const displayLine2 = ref("");
-const showLine3 = ref(false);
-const showSocialLinks = ref(false);
-const line2Completed = ref(false);
-
-// 社交链接数据（使用 Iconify 图标名）
 const socialLinks = [
-  {
-    name: "GitHub",
-    url: "https://github.com/DavidBlackCN/Docs-For-TUW",
-    icon: "simple-icons:github",
-    hoverColor: "#ffffff",
-    hoverBg: "rgba(255,255,255,0.15)",
-  },
-  {
-    name: "QQ",
-    url: "https://qm.qq.com/q/LIgHWqCH6K",
-    icon: "simple-icons:qq",
-    hoverColor: "#ffffff",
-    hoverBg: "rgba(255,255,255,0.15)",
-  },
-  {
-    name: "Bilibili",
-    url: "https://space.bilibili.com/40074868",
-    icon: "simple-icons:bilibili",
-    hoverColor: "#ffffff",
-    hoverBg: "rgba(255,255,255,0.15)",
-  },
-  {
-    name: "爱发电",
-    url: "https://afdian.com/a/davidblackcn",
-    icon: "simple-icons:afdian",
-    hoverColor: "#ffffff",
-    hoverBg: "rgba(255,255,255,0.15)",
-  },
-  {
-    name: "Email",
-    url: "mailto:davidblackcn@outlook.com",
-    icon: "material-symbols:mail",
-    hoverColor: "#ffffff",
-    hoverBg: "rgba(255,255,255,0.15)",
-  },
-];
+  { name: 'GitHub', url: 'https://github.com/DavidBlackCN/Docs-For-TUW', icon: 'simple-icons:github' },
+  { name: 'QQ', url: 'https://qm.qq.com/q/LIgHWqCH6K', icon: 'simple-icons:qq' },
+  { name: 'Bilibili', url: 'https://space.bilibili.com/40074868', icon: 'simple-icons:bilibili' },
+  { name: '爱发电', url: 'https://afdian.com/a/davidblackcn', icon: 'simple-icons:afdian' },
+  { name: 'Email', url: 'mailto:davidblackcn@outlook.com', icon: 'material-symbols:mail-outline' },
+]
+const isExternalLink = (link?: string) => Boolean(link && /^(https?:)?\/\//.test(link))
 
-const socialVisible = ref<boolean[]>(socialLinks.map(() => false));
+function schedule(callback: () => void, delay: number) {
+  const timer = setTimeout(callback, delay)
+  timers.push(timer)
+}
 
-let typingTimer: ReturnType<typeof setTimeout> | null = null;
-
-const typeText = (
-  text: string,
-  target: typeof displayLine1,
-  speed: number,
-  onComplete?: () => void
-) => {
-  let index = 0;
-  target.value = "";
-
+function typeText(text: string, target: typeof displayLine1, speed: number, done?: () => void) {
+  let index = 0
+  target.value = ''
   const tick = () => {
     if (index < text.length) {
-      target.value += text[index];
-      index++;
-      typingTimer = setTimeout(tick, speed);
-    } else {
-      onComplete?.();
-    }
-  };
-  tick();
-};
-
-const startSocialReveal = () => {
-  socialLinks.forEach((_, i) => {
-    setTimeout(() => {
-      socialVisible.value[i] = true;
-    }, i * 150);
-  });
-};
-const line2Started = ref(false); // 新增：第二行开始打字的状态
-const startTypingSequence = () => {
-  typeText(line1Text, displayLine1, 80, () => {
-    typingTimer = setTimeout(() => {
-      line2Started.value = true; // 标记第二行开始打字
-      typeText(line2Text, displayLine2, 100, () => {
-        line2Completed.value = true;
-        typingTimer = setTimeout(() => {
-          showLine3.value = true;
-          typingTimer = setTimeout(() => {
-            showSocialLinks.value = true;
-            startSocialReveal();
-          }, 1000);
-        }, 400);
-      });
-    }, 300);
-  });
-};
-
-// --- 视差滚动 ---
-const handleScroll = () => {
-  const scrollTop = window.pageYOffset || 0;
-  showScrollIndicator.value = scrollTop < 80;
-
-  if (bgRef.value) {
-    const movement = scrollTop * 0.45;
-    bgRef.value.style.transform = `translate3d(0, ${movement}px, 0)`;
+      target.value += text[index++]
+      schedule(tick, speed)
+    } else done?.()
   }
-};
+  tick()
+}
+
+function startSocialReveal() {
+  socialVisible.value = socialLinks.map(() => false)
+  socialLinks.forEach((_, index) => schedule(() => { socialVisible.value[index] = true }, index * 55))
+}
+
+function startTypingSequence() {
+  typeText(line1Text, displayLine1, 42, () => schedule(() => typeText(line2Text, displayLine2, 48, () => {
+    line2Completed.value = true
+    schedule(() => {
+      showLine3.value = true
+      schedule(() => {
+        showActions.value = true
+        schedule(() => { showSocialLinks.value = true; startSocialReveal() }, 620)
+      }, 520)
+    }, 260)
+  }), 110))
+}
+
+function handleScroll() {
+  const scrollTop = window.scrollY || 0
+  showScrollIndicator.value = scrollTop < 80
+}
 
 onMounted(() => {
-  window.addEventListener("scroll", handleScroll, { passive: true });
-  typingTimer = setTimeout(startTypingSequence, 600);
-});
-
+  window.addEventListener('scroll', handleScroll, { passive: true })
+  schedule(startTypingSequence, 180)
+})
 onBeforeUnmount(() => {
-  window.removeEventListener("scroll", handleScroll);
-  if (typingTimer) clearTimeout(typingTimer);
-});
+  window.removeEventListener('scroll', handleScroll)
+  timers.forEach(clearTimeout)
+  timers = []
+})
 </script>
 
 <template>
   <div class="homepage-container">
-    <!-- 第一部分：纯背景视觉区 -->
-    <section class="hero-visual">
-      <div class="parallax-wrapper">
-        <div
-          ref="bgRef"
-          class="parallax-bg"
-          :style="{ backgroundImage: `url(${bgImage})` }"
-        ></div>
-        <div class="bottom-gradient"></div>
+    <section class="hero-visual" aria-label="TUW 社区图书馆首页">
+      <div class="parallax-wrapper" aria-hidden="true">
+        <div ref="bgRef" class="parallax-bg" :style="{ backgroundImage: `url(${bgImage})` }"></div>
+        <div class="hero-shade"></div>
       </div>
-
-      <!-- 左侧文字区域：固定高度布局，防止跳动 -->
       <div class="hero-overlay-text" aria-live="polite">
-
-        <!-- 
-          关键：使用固定高度的占位容器
-          无论内容是否显示，容器尺寸始终不变，
-          从而避免新行出现时把已有内容顶走
-        -->
-        <div class="text-block">
-          <!-- 第一行占位 + 内容 -->
-          <div class="line-slot line-slot--lg">
-            <p class="typewriter-line">
-              <span class="bracket">{{
-                displayLine1.includes("]")
-                  ? displayLine1.substring(0, displayLine1.indexOf("]") + 1)
-                  : displayLine1.startsWith("[")
-                  ? displayLine1
-                  : ""
-              }}</span>
-              <span class="name">{{
-                displayLine1.includes("]")
-                  ? displayLine1.substring(displayLine1.indexOf("]") + 1)
-                  : displayLine1.startsWith("[")
-                  ? ""
-                  : displayLine1
-              }}</span>
-              <span class="cursor" :class="{ hidden: displayLine2.length > 0 }">|</span>
-            </p>
+        <div class="hero-copy">
+          <div v-if="hero.name || hero.text" class="hero-identity" aria-label="作品信息">
+            <p v-if="hero.name" class="hero-identity__name">{{ hero.name }}</p>
+            <p v-if="hero.text" class="hero-identity__text">{{ hero.text }}</p>
           </div>
-
-          <!-- 第二行占位 + 内容 -->
-          <div class="line-slot line-slot--lg">
-            <p class="typewriter-line">
-              {{ displayLine2
-              }}<span
-                class="underscore-blink"
-                :class="{ active: line2Completed }"
-                >_</span
-              ><span
-                class="cursor"
-                :class="{ hidden: line2Completed || displayLine2.length === 0 }"
-                >|</span
-              >
-            </p>
+          <p class="typewriter-line typewriter-line--primary"><span class="bracket">{{ displayLine1.includes(']') ? displayLine1.slice(0, displayLine1.indexOf(']') + 1) : (displayLine1.startsWith('[') ? displayLine1 : '') }}</span><span class="name">{{ displayLine1.includes(']') ? displayLine1.slice(displayLine1.indexOf(']') + 1) : (displayLine1.startsWith('[') ? '' : displayLine1) }}</span><span class="cursor" :class="{ hidden: displayLine2.length > 0 }">|</span></p>
+          <p class="typewriter-line typewriter-line--secondary">{{ displayLine2 }}<span class="underscore-blink" :class="{ active: line2Completed }">_</span><span class="cursor" :class="{ hidden: line2Completed || !displayLine2 }">|</span></p>
+          <transition name="quick-fade"><p v-if="showLine3" class="hero-subtitle">{{ line3Text }}</p></transition>
+          <div v-if="hero.actions?.length && showActions" class="hero-actions">
+            <template v-for="(action, index) in hero.actions" :key="index">
+              <a v-if="isExternalLink(action.link)" :href="action.link" class="vp-button" :class="action.theme || 'alt'" :style="{ '--button-delay': `${index * 120}ms` }" target="_blank" rel="noopener noreferrer">{{ action.text }}</a>
+              <RouterLink v-else-if="action.link" :to="action.link" class="vp-button" :class="action.theme || 'alt'" :style="{ '--button-delay': `${index * 120}ms` }">{{ action.text }}</RouterLink>
+            </template>
           </div>
-
-          <!-- 第三行占位 + 内容 -->
-          <div class="line-slot line-slot--sm">
-            <transition name="line3-fade">
-              <p v-if="showLine3" class="hero-overlay-text__sub">
-                {{ line3Text }}
-              </p>
-            </transition>
-          </div>
-
-          <!-- 社交图标占位 + 内容 -->
-          <div class="line-slot line-slot--social">
-            <transition name="line3-fade">
-              <div v-if="showSocialLinks" class="social-links">
-                <a
-                  v-for="(link, index) in socialLinks"
-                  :key="link.name"
-                  :href="link.url"
-                  :title="link.name"
-                  class="social-link"
-                  :class="{ visible: socialVisible[index] }"
-                  :style="{
-                    '--hover-color': link.hoverColor,
-                    '--hover-bg': link.hoverBg,
-                  }"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Icon :icon="link.icon" class="social-icon" />
-                </a>
-              </div>
-            </transition>
-          </div>
+          <transition name="quick-fade"><div v-if="showSocialLinks" class="social-links" aria-label="社交链接">
+            <a v-for="(link, index) in socialLinks" :key="link.name" :href="link.url" :title="link.name" class="social-link" :class="{ visible: socialVisible[index] }" target="_blank" rel="noopener noreferrer"><Icon :icon="link.icon" class="social-icon" /><span class="sr-only">{{ link.name }}</span></a>
+          </div></transition>
         </div>
       </div>
-
-      <!-- 滚动提示器 -->
-      <transition name="fade">
-        <div v-if="showScrollIndicator" class="scroll-down-hint">
-          <span class="hint-text">向下滑动</span>
-          <div class="mouse-icon">
-            <div class="wheel"></div>
-          </div>
-        </div>
-      </transition>
-    </section>
-
-    <!-- 第二部分：内容介绍区 -->
-    <section id="content" class="hero-content-section">
-      <div class="content-wrapper">
-        <div v-if="hero" class="hero-card">
-          <div class="hero-card__info">
-            <p v-if="hero.name" class="hero-card__name">{{ hero.name }}</p>
-            <h1 v-if="hero.text" class="hero-card__title">{{ hero.text }}</h1>
-            <div class="hero-card__tagline">
-              <slot name="tagline">{{ hero.tagline }}</slot>
-            </div>
-
-            <div v-if="hero.actions?.length" class="hero-card__actions">
-              <template v-for="(action, index) in hero.actions" :key="index">
-                <a
-                  v-if="isExternalLink(action.link)"
-                  :href="action.link"
-                  class="vp-button"
-                  :class="action.theme || 'alt'"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {{ action.text }}
-                </a>
-                <RouterLink
-                  v-else-if="action.link"
-                  :to="action.link"
-                  class="vp-button"
-                  :class="action.theme || 'alt'"
-                >
-                  {{ action.text }}
-                </RouterLink>
-              </template>
-            </div>
-          </div>
-        </div>
-      </div>
+      <transition name="quick-fade"><div v-if="showScrollIndicator" class="scroll-down-hint" aria-hidden="true"><span class="hint-text">向下滚动</span><span class="mouse-icon"><span class="wheel"></span></span></div></transition>
     </section>
   </div>
 </template>
 
 <style scoped>
-.homepage-container {
-  background-color: var(--vp-c-bg);
-}
-
-/* --- 第一部分：首屏视觉 --- */
-.hero-visual {
-  position: relative;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
-}
-
-.parallax-wrapper {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-.parallax-bg {
-  position: absolute;
-  top: -15%;
-  left: 0;
-  width: 100%;
-  height: 130%;
-  background-size: cover;
-  background-position: center;
-  will-change: transform;
-}
-
-.bottom-gradient {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 50vh;
-  background: linear-gradient(to bottom, transparent 0%, var(--vp-c-bg) 100%);
-}
-
-/* =====================================================
-   核心修复：固定位置布局
-   整个文字区域使用绝对定位锚定在左侧固定位置，
-   内部每一行都有固定高度的 line-slot 占位，
-   内容出现时不会影响其他行的位置。
-   ===================================================== */
-.hero-overlay-text {
-  position: absolute;
-  left: clamp(24px, 6vw, 96px);
-  /* 
-    使用 top 而非 transform 居中，
-    配合 text-block 的固定总高度，
-    确保整体视觉重心稳定
-  */
-  top: 50%;
-  transform: translateY(-55%);
-  z-index: 5;
-  filter: drop-shadow(0 4px 24px rgba(0, 0, 0, 0.55));
-}
-
-/* 
-  text-block：所有行的容器
-  总高度 = 两个大行 + 小行 + 社交图标行
-  高度固定，内容从顶部开始排列，不会因内容出现而跳动
-*/
-.text-block {
-  display: flex;
-  flex-direction: column;
-  /* 不设 gap，由各 line-slot 自身高度控制间距 */
-}
-
-/* 每行的固定高度占位槽 */
-.line-slot {
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  overflow: visible;
-}
-
-/* 大字行（第一、二行） */
-.line-slot--lg {
-  height: clamp(44px, 7vw, 88px);
-  margin-bottom: 12px;
-}
-
-/* 小字行（第三行） */
-.line-slot--sm {
-  height: clamp(26px, 2.8vw, 34px);
-  margin-top: 20px;
-  margin-bottom: 0;
-}
-
-/* 社交图标行 */
-.line-slot--social {
-  height: 64px;
-  margin-top: 28px;
-}
-
-/* --- 打字机文字样式 --- */
-.typewriter-line {
-  margin: 0;
-  font-size: clamp(36px, 6vw, 72px);
-  font-weight: 800;
-  line-height: 1.2;
-  color: #ffffff;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-  /* 绝对定位在槽内，不占文档流高度 */
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.bracket {
-  color: var(--vp-c-brand-1);
-}
-
-.name {
-  color: #ffffff;
-  margin-left: 2px;
-}
-
-/* 打字光标 */
-.cursor {
-  display: inline-block;
-  color: var(--vp-c-brand-1);
-  font-weight: 300;
-  margin-left: 2px;
-  animation: blink 1s step-end infinite;
-}
-
-.cursor.hidden {
-  opacity: 0;
-  animation: none;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
-}
-
-/* 第二行末尾下划线 */
-.underscore-blink {
-  display: inline-block;
-  color: #ffffff;
-  font-weight: 800;
-  opacity: 0;
-}
-
-/* 第二行开始打字后显示，静止 */
-.underscore-blink--visible {
-  opacity: 1;
-}
-
-.underscore-blink.active {
-  animation: terminal-blink 1s step-end infinite;
-}
-
-@keyframes terminal-blink {
-  0%, 60%   { opacity: 1; }
-  61%, 100% { opacity: 0; }
-}
-
-/* 第三行小字 */
-.hero-overlay-text__sub {
-  margin: 0;
-  font-size: clamp(22px, 2vw, 44px);
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.75);
-  letter-spacing: 0.08em;
-  white-space: nowrap;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-/* 第三行 & 社交图标渐入过渡 */
-.line3-fade-enter-active {
-  transition: opacity 0.9s ease, transform 0.9s ease;
-}
-.line3-fade-enter-from {
-  opacity: 0;
-  transform: translateY(8px);
-}
-
-/* =====================================================
-   社交链接图标
-   ===================================================== */
-.social-links {
-  display: flex;
-  gap: 24px;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.social-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 64px;
-  height: 64px;
-  color: rgba(255, 255, 255, 0.55);
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(8px);
-  text-decoration: none;
-  /* 初始：透明 + 下移 */
-  opacity: 0;
-  transform: translateY(10px);
-  /* 过渡：颜色、背景、边框、位移、阴影 */
-  transition:
-    color 0.3s ease,
-    background 0.3s ease,
-    border-color 0.3s ease,
-    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-    box-shadow 0.3s ease,
-    opacity 0.3s ease;
-}
-
-/* 渐入动画 */
-.social-link.visible {
-  animation: social-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-@keyframes social-in {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* 
-  Hover 动效：
-  - 使用 CSS 变量 --hover-color / --hover-bg 实现每个图标独立颜色
-  - cubic-bezier(0.34, 1.56, 0.64, 1) 产生轻微弹跳感
-  - box-shadow 增加发光效果
-*/
-.social-link:hover {
-  color: var(--hover-color, #ffffff);
-  background: var(--hover-bg, rgba(255, 255, 255, 0.15));
-  border-color: rgba(255, 255, 255, 0.4);
-  transform: translateY(-4px) scale(1.12);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-}
-
-/* 点击时的按压反馈 */
-.social-link:active {
-  transform: translateY(-1px) scale(1.04);
-  transition-duration: 0.1s;
-}
-
-.social-icon {
-  width: 36px;
-  height: 36px;
-  /* 图标本身也跟随颜色过渡 */
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-/* hover 时图标轻微旋转增加活泼感 */
-.social-link:hover .social-icon {
-  transform: rotate(-8deg) scale(1.1);
-}
-
-/* --- 滚动提示器 --- */
-.scroll-down-hint {
-  position: absolute;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 10;
-  color: var(--vp-c-text-2);
-  pointer-events: none;
-}
-
-.hint-text {
-  font-size: 11px;
-  letter-spacing: 5px;
-  margin-bottom: 14px;
-  font-weight: 600;
-  opacity: 0.8;
-}
-
-.mouse-icon {
-  width: 26px;
-  height: 42px;
-  border: 2px solid var(--vp-c-text-3);
-  border-radius: 14px;
-  position: relative;
-  backdrop-filter: blur(2px);
-}
-
-.wheel {
-  width: 2px;
-  height: 8px;
-  background: var(--vp-c-brand-1);
-  position: absolute;
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  animation: scroll-anim 1.8s infinite;
-}
-
-@keyframes scroll-anim {
-  0%   { opacity: 0; transform: translate(-50%, 0); }
-  30%  { opacity: 1; }
-  100% { opacity: 0; transform: translate(-50%, 18px); }
-}
-
-/* --- 第二部分：内容介绍区 --- */
-.hero-content-section {
-  position: relative;
-  z-index: 2;
-  padding: 0 24px 140px;
-  margin-top: 10vh;
-}
-
-.content-wrapper {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.hero-card {
-  padding: 64px 48px;
-  border-radius: 32px;
-  background: var(--vp-c-bg-soft);
-  border: 1px solid var(--vp-c-gutter);
-  box-shadow: var(--vp-shadow-4);
-  text-align: center;
-  backdrop-filter: blur(10px);
-}
-
-.hero-card__info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.hero-card__name {
-  color: var(--vp-c-brand-1);
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  margin-bottom: 24px;
-  font-size: 54px;
-  text-transform: uppercase;
-}
-
-.hero-card__title {
-  font-size: clamp(32px, 5vw, 52px);
-  font-weight: 800;
-  color: var(--vp-c-text-1);
-  line-height: 1.2;
-  max-width: 20ch;
-}
-
-.hero-card__tagline {
-  font-size: clamp(16px, 2vw, 19px);
-  color: var(--vp-c-text-2);
-  margin-bottom: 48px;
-  line-height: 1.8;
-  max-width: 600px;
-}
-
-.hero-card__actions {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-/* --- 按钮样式 --- */
-.vp-button {
-  display: inline-block;
-  padding: 0 32px;
-  line-height: 48px;
-  border-radius: 24px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.25s ease;
-  font-size: 15px;
-}
-
-.vp-button.brand {
-  background-color: var(--vp-c-brand-1);
-  color: #ffffff;
-}
-
-.vp-button.brand:hover {
-  background-color: var(--vp-c-brand-2);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-}
-
-.vp-button.alt {
-  background-color: var(--vp-c-bg-mute);
-  color: var(--vp-c-text-1);
-  border: 1px solid var(--vp-c-gutter);
-}
-
-.vp-button.alt:hover {
-  background-color: var(--vp-c-default-2);
-  transform: translateY(-2px);
-}
-
-/* --- 过渡动画 --- */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-  transform: translate(-50%, 10px);
-}
-
-/* --- 响应式 --- */
+.homepage-container { background: var(--vp-c-bg); }
+.hero-visual { position: relative; min-height: min(900px, 100svh); height: 100svh; overflow: hidden; isolation: isolate; view-transition-name: home-hero-media; }
+.parallax-wrapper, .parallax-bg, .hero-shade { position: absolute; inset: 0; }
+.parallax-wrapper { z-index: -1; overflow: hidden; background: #1b1c1f; }
+.parallax-bg { inset: -8%; background-position: center 38%; background-repeat: no-repeat; background-size: cover; will-change: transform; }
+.hero-shade { background: linear-gradient(90deg, rgba(11, 15, 18, .76), rgba(11, 15, 18, .42) 46%, rgba(11, 15, 18, .18)), linear-gradient(0deg, rgba(11, 15, 18, .72), transparent 28%); }
+.hero-overlay-text { position: relative; z-index: 1; display: flex; align-items: center; min-height: 100%; box-sizing: border-box; width: 100%; padding: calc(var(--vp-nav-height) + 40px) clamp(36px, 5vw, 96px) 120px; color: #fff; }
+.hero-copy { width: min(1050px, 70vw); text-shadow: 0 4px 28px rgba(0, 0, 0, .42); }
+.hero-identity { margin-bottom: clamp(1.2rem, 2.6vw, 2.2rem); text-shadow: 0 3px 18px rgba(0, 0, 0, .34); }
+.hero-identity__name { margin: 0; color: rgba(255, 255, 255, .88); font-size: clamp(1rem, 1.7vw, 1.45rem); font-weight: 700; line-height: 1.35; letter-spacing: .12em; }
+.hero-identity__text { max-width: 34em; margin: .35rem 0 0; color: rgba(255, 255, 255, .62); font-size: clamp(.8rem, 1.15vw, 1rem); line-height: 1.5; letter-spacing: .08em; }
+.typewriter-line { margin: 0; font-weight: 800; line-height: 1.1; overflow-wrap: anywhere; }
+.typewriter-line--primary { font-size: clamp(2.4rem, 4.2vw, 4.8rem); white-space: nowrap; }
+.typewriter-line--secondary { min-height: 1.1em; margin-top: .24em; font-size: clamp(2rem, 4.8vw, 4.3rem); }
+.bracket, .cursor, .hero-card__name { color: var(--vp-c-brand-1); }
+.name { color: #fff; }
+.cursor { display: inline-block; margin-left: .08em; font-weight: 400; animation: blink 720ms step-end infinite; }
+.cursor.hidden { opacity: 0; animation: none; }
+.underscore-blink { opacity: 0; }
+.underscore-blink.active { opacity: 1; animation: terminal-blink 720ms step-end infinite; }
+.hero-subtitle { max-width: 34em; margin: 1.35rem 0 0; color: rgba(255, 255, 255, .78); font-size: clamp(1rem, 1.8vw, 1.4rem); line-height: 1.65; letter-spacing: .04em; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 2rem; }
+.vp-button { position: relative; display: inline-flex; align-items: center; justify-content: center; min-height: 44px; box-sizing: border-box; padding: 8px 20px; overflow: hidden; border: 1.5px solid transparent; border-radius: 8px; font-size: .95rem; font-weight: 700; line-height: 1.3; text-decoration: none; opacity: 0; transform: translateY(18px) scale(.96); animation: button-rise 720ms cubic-bezier(.2,.78,.22,1) forwards; animation-delay: var(--button-delay, 0ms); transition: transform 220ms cubic-bezier(.2,.78,.22,1), background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease; }
+.vp-button::after { position: absolute; inset: 0 auto 0 -45%; width: 28%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.3), transparent); content: ''; transform: skewX(-18deg); animation: button-sheen 900ms ease-out 760ms both; pointer-events: none; }
+.vp-button:hover { transform: translateY(-2px); }
+.vp-button.brand { background: var(--vp-c-brand-1); color: #fff; }
+.vp-button.brand:hover { background: var(--vp-c-brand-2); }
+.vp-button.alt, .vp-button.outline, .vp-button.ghost { border-color: rgba(255,255,255,.36); background: rgba(255,255,255,.1); color: #fff; backdrop-filter: blur(8px); }
+.vp-button.alt:hover, .vp-button.outline:hover, .vp-button.ghost:hover { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.7); }
+.social-links { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 1.7rem; }
+.social-link { display: grid; place-items: center; width: 52px; height: 52px; border: 1.5px solid rgba(255,255,255,.28); border-radius: 8px; background: rgba(255,255,255,.09); color: rgba(255,255,255,.78); opacity: 0; transform: translateY(14px) scale(.9); transition: opacity 420ms ease, transform 520ms cubic-bezier(.2,.78,.22,1), background-color 220ms ease, color 220ms ease; }
+.social-link.visible { opacity: 1; transform: translateY(0) scale(1); }
+.social-link:hover { background: rgba(255,255,255,.2); color: #fff; transform: translateY(-2px); }
+.social-icon { width: 24px; height: 24px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.scroll-down-hint { position: absolute; left: 50%; bottom: max(28px, env(safe-area-inset-bottom)); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 10px; color: rgba(255,255,255,.72); transform: translateX(-50%); }
+.hint-text { font-size: .7rem; letter-spacing: .18em; }
+.mouse-icon { display: block; width: 26px; height: 40px; border: 1.5px solid rgba(255,255,255,.62); border-radius: 12px; }
+.wheel { display: block; width: 2px; height: 7px; margin: 7px auto 0; background: var(--vp-c-brand-1); animation: scroll-wheel 1.2s ease-in-out infinite; }
+.hero-content-section { padding: 72px 24px 96px; }
+.content-wrapper { max-width: 900px; margin: 0 auto; text-align: center; }
+.hero-card__name { margin: 0 0 16px; font-size: clamp(1.6rem, 4vw, 3rem); font-weight: 700; letter-spacing: .12em; }
+.hero-card__title { margin: 0; color: var(--vp-c-text-1); font-size: clamp(1.8rem, 4vw, 3.2rem); line-height: 1.25; }
+.hero-card__tagline { margin-top: 20px; color: var(--vp-c-text-2); line-height: 1.8; }
+.quick-fade-enter-active, .quick-fade-leave-active { transition: opacity 180ms ease, transform 180ms ease; }
+.quick-fade-enter-from, .quick-fade-leave-to { opacity: 0; transform: translateY(6px); }
+.scroll-down-hint.quick-fade-enter-from, .scroll-down-hint.quick-fade-leave-to { transform: translate(-50%, 6px); }
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes terminal-blink { 0%, 60% { opacity: 1; } 61%, 100% { opacity: 0; } }
+@keyframes scroll-wheel { 0% { opacity: 0; transform: translateY(0); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateY(12px); } }
+@keyframes button-rise { 0% { opacity: 0; transform: translateY(18px) scale(.96); } 65% { opacity: 1; transform: translateY(-3px) scale(1.01); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes button-sheen { 0% { transform: translateX(0) skewX(-18deg); opacity: 0; } 18% { opacity: 1; } 100% { transform: translateX(520%) skewX(-18deg); opacity: 0; } }
 @media (max-width: 640px) {
-  /* ── 整体文字区域定位 ── */
-  .hero-overlay-text {
-    left: 20px;
-    right: 20px;          /* 新增：限制右边界，防止溢出 */
-    top: 42%;
-    transform: translateY(-50%);
-  }
-  /* ── text-block 允许自然撑高 ── */
-  .text-block {
-    width: 100%;
-  }
-  /* ── 大字行：改为自动高度，避免换行后内容重叠 ── */
-  .line-slot--lg {
-    height: auto;          /* 覆盖固定高度 */
-    min-height: clamp(40px, 12vw, 56px);
-    margin-bottom: 8px;
-  }
-  /* ── 小字行 ── */
-  .line-slot--sm {
-    height: auto;
-    min-height: 28px;
-    margin-top: 12px;
-  }
-  /* ── 社交图标行：自动高度，防止图标被裁切 ── */
-  .line-slot--social {
-    height: auto;
-    min-height: 52px;
-    margin-top: 16px;
-  }
-  /* ── 打字机主文字 ── */
-  .typewriter-line {
-    position: relative;    /* 覆盖 absolute，让行高自然撑开父容器 */
-    top: auto;
-    left: auto;
-    font-size: clamp(26px, 8vw, 38px);
-    white-space: normal;   /* 允许换行 */
-    word-break: break-word;
-    line-height: 1.25;
-    display: block;
-  }
-  /* ── 第三行小字 ── */
-  .hero-overlay-text__sub {
-    position: relative;    /* 覆盖 absolute */
-    top: auto;
-    left: auto;
-    white-space: normal;
-    word-break: break-word;
-    font-size: clamp(13px, 3.5vw, 17px);
-    line-height: 1.5;
-  }
-  /* ── 社交图标容器 ── */
-  .social-links {
-    position: relative;    /* 覆盖 absolute */
-    top: auto;
-    left: auto;
-    gap: 10px;
-    flex-wrap: wrap;       /* 图标过多时允许换行 */
-  }
-  /* ── 单个社交图标 ── */
-  .social-link {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-  }
-  .social-icon {
-    width: 22px;
-    height: 22px;
-  }
-  /* ── 滚动提示：避免被底部导航栏遮挡 ── */
-  .scroll-down-hint {
-    bottom: 90px;
-  }
-  /* ── 第二部分卡片 ── */
-  .hero-content-section {
-    padding: 0 16px 80px;
-    margin-top: 6vh;
-  }
-  .hero-card {
-    padding: 36px 20px;
-    border-radius: 20px;
-  }
-  .hero-card__name {
-    font-size: clamp(28px, 8vw, 40px);
-    margin-bottom: 16px;
-    letter-spacing: 0.1em;
-  }
-  .hero-card__title {
-    font-size: clamp(22px, 6vw, 32px);
-  }
-  .hero-card__tagline {
-    font-size: clamp(14px, 3.5vw, 16px);
-    margin-bottom: 32px;
-  }
-  .hero-card__actions {
-    gap: 12px;
-  }
-  .vp-button {
-    padding: 0 24px;
-    line-height: 44px;
-    font-size: 14px;
-    border-radius: 22px;
-  }
+  .hero-visual { min-height: 680px; height: 100svh; }
+  .parallax-bg { inset: -12%; background-position: 62% center; }
+  .hero-shade { background: linear-gradient(180deg, rgba(11,15,18,.6), rgba(11,15,18,.3) 42%, rgba(11,15,18,.88)), linear-gradient(0deg, rgba(11,15,18,.72), transparent 24%); }
+  .hero-overlay-text { align-items: flex-end; padding: calc(var(--vp-nav-height) + 28px) 20px max(88px, env(safe-area-inset-bottom) + 64px); }
+  .hero-copy { width: 100%; }
+  .hero-identity { margin-bottom: 1.25rem; }
+  .hero-identity__name { font-size: 1rem; }
+  .hero-identity__text { font-size: .78rem; letter-spacing: .04em; }
+  .typewriter-line--primary { font-size: clamp(2rem, 10vw, 3.2rem); }
+  .typewriter-line--primary { white-space: normal; }
+  .typewriter-line--secondary { font-size: clamp(1.7rem, 8vw, 2.6rem); }
+  .hero-subtitle { margin-top: 1rem; font-size: .95rem; }
+  .hero-actions { gap: 8px; margin-top: 1.35rem; }
+  .vp-button { flex: 1 1 140px; min-height: 42px; padding: 8px 12px; font-size: .85rem; }
+  .scroll-down-hint { bottom: max(22px, env(safe-area-inset-bottom)); }
+  .hint-text { display: none; }
+  .hero-content-section { padding: 52px 20px 72px; }
 }
+@media (min-width: 960px) { .homepage-container { margin-top: calc(0px - var(--vp-nav-height)); } }
+@media (prefers-reduced-motion: reduce) { .parallax-bg, .cursor, .underscore-blink.active, .wheel, .vp-button, .vp-button::after, .social-link, .quick-fade-enter-active, .quick-fade-leave-active { animation: none; transition: none; } .vp-button, .social-link { opacity: 1; transform: none; } }
 </style>
