@@ -7,14 +7,22 @@
 }
 
 @font-face {
+  font-family: 'MiSans';
+  src: url('/fonts/MiSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'LogoFont';
   src: url('/fonts/Segoesc.woff2') format('woff2');
   font-display: swap;
 }
 
 :root {
-  --vp-font-family-base: "MapleMono-Medium", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-  --vp-font-family-mono: "MapleMono-Medium", ui-monospace, SFMono-Regular, Consolas, monospace;
+  --vp-font-family-base: "MapleMono-Medium", "MiSans", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --vp-font-family-mono: "MapleMono-Medium", "MiSans", ui-monospace, SFMono-Regular, Consolas, monospace;
   --vp-nav-height: 64px;
   --vp-sidebar-width: 260px;
   --vp-c-brand-1: #5086a1;
