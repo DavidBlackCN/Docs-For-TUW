@@ -62,13 +62,6 @@ export default defineUserConfig({
 `,
     },
 
-    // 文档加密
-    encrypt: {
-      rules: {
-        'docs/3.设定集&离线文档/1.弥赛亚全隐藏收集.md': 'xueseliming',
-      }
-    },
-
     // 本地化
     locales: {
       '/': {
