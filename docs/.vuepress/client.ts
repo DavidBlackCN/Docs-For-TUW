@@ -9,6 +9,7 @@ import HomePage from './theme/components/HomePage.vue'
 import GitHubCard from './theme/components/GitHubCard.vue'
 import ColorStylePicker from './theme/components/ColorStylePicker.vue'
 import ThemeAppearanceSwitch from './theme/components/ThemeAppearanceSwitch.vue'
+import GroupDirectory from './theme/components/GroupDirectory.vue'
 import './theme/styles/index.css'
 
 export default defineClientConfig({
@@ -21,6 +22,7 @@ export default defineClientConfig({
     app.component('GitHubCard', GitHubCard)
     app.component('ColorStylePicker', ColorStylePicker)
     app.component('ThemeAppearanceSwitch', ThemeAppearanceSwitch)
+    app.component('GroupDirectory', GroupDirectory)
   },
   layouts: {
     Layout: () => h(Layout, null, {

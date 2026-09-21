@@ -19,14 +19,4 @@ icon: material-symbols:bookmark-added-outline
 
 ## **目录**
 
-<LinkCard icon="" title="❓️常见问题解答 | 游戏内常见问题" href="/docs/常见问题解答/" />
-
-<LinkCard icon="" title="🏷️常用坐标收集 | 包含一代&二代&弥赛亚" href="/docs/常用坐标收集/" />
-
-<LinkCard icon="" title="💥解决游戏崩溃 | 崩溃解决方案" href="/docs/解决游戏崩溃/" />
-
-<LinkCard icon="" title="📄新人游玩攻略 | 群友提供" href="/docs/新人游玩攻略/" />
-
-<LinkCard icon="" title="🎵BGM收集 | 弥赛亚BGM收集" href="/docs/BGM收集/" />
-
-<LinkCard icon="" title="🪧纪念版特供模组说明" href="/docs/纪念版特供模组说明/" />
+<GroupDirectory description="文档库"/>
