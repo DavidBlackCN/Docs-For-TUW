@@ -538,3 +538,30 @@ html:not(.layout-home) .vp-navbar .vp-navbar-title .title {
 html:not(.layout-home) .vp-navbar .divider-line {
   background: color-mix(in srgb, var(--vp-c-divider) 75%, transparent) !important;
 }
+
+/* Home page scrolled state: keep the navbar as one continuous glass strip.
+   The document sidebar split must not leak into the hero navbar title area. */
+html.layout-home .vp-navbar:not(.top),
+html.layout-home .vp-navbar.screen-open {
+  background-color: rgba(8, 14, 19, .72) !important;
+  background-image: none !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, .24) !important;
+  backdrop-filter: blur(14px) saturate(125%);
+}
+
+html.layout-home .vp-navbar:not(.top)::before,
+html.layout-home .vp-navbar.has-sidebar::before {
+  display: none !important;
+}
+
+html.layout-home .vp-navbar:not(.top) .wrapper,
+html.layout-home .vp-navbar:not(.top) .container,
+html.layout-home .vp-navbar:not(.top) .title,
+html.layout-home .vp-navbar:not(.top) .content,
+html.layout-home .vp-navbar:not(.top) .content-body,
+html.layout-home .vp-navbar:not(.top) .vp-navbar-title,
+html.layout-home .vp-navbar:not(.top) .vp-navbar-title .title {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
